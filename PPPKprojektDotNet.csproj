@@ -62,6 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datebase\Ishod7.cs" />
+    <Compile Include="Datebase\Ishod5.cs" />
+    <Compile Include="Datebase\Ishod4.cs" />
+    <Compile Include="Datebase\Ishod3.cs" />
+    <Compile Include="Datebase\Ishod1.cs" />
     <Compile Include="Forms\DriversForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +91,7 @@
     <Compile Include="Forms\XmlForm.Designer.cs">
       <DependentUpon>XmlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Driver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\DriversForm.resx">
