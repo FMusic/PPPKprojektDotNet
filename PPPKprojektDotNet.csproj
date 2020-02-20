@@ -40,6 +40,7 @@
       <HintPath>packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datebase\DbProps.cs" />
     <Compile Include="Datebase\Ishod7.cs" />
     <Compile Include="Datebase\Ishod5.cs" />
     <Compile Include="Datebase\Ishod4.cs" />
