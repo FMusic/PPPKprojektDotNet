@@ -42,6 +42,7 @@ namespace PPPKprojektDotNet.Datebase
                         }
                     }
                 }
+                conn.Close();
             }
             return lista;
         }
@@ -64,6 +65,7 @@ namespace PPPKprojektDotNet.Datebase
                     cmd.CommandType = CommandType.Text;
                     v = cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             return v;
         }
@@ -95,6 +97,7 @@ namespace PPPKprojektDotNet.Datebase
                     cmd.CommandText = query;
                     v = cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             return v;
         }
@@ -112,6 +115,111 @@ namespace PPPKprojektDotNet.Datebase
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = query;
                     v = cmd.ExecuteNonQuery();
+                }
+            }
+            return v;
+        }
+        
+        public static IList<TravelWarrant> GetAllTravelWarrants()
+        {
+            IList<Vehicle> vehicles = GetAllVehicles();
+            IList<Driver> drivers = GetDrivers();
+            IList<TravelWarrant> warrants = GetAllWarrants(vehicles, drivers);
+            return warrants;
+        }
+
+        private static IList<TravelWarrant> GetAllWarrants(IList<Vehicle> vehicles, IList<Driver> drivers){
+            IList<TravelWarrant> warrants = new List<TravelWarrant>();
+            using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "GetAllTravelWarrants";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                warrants.Add(new TravelWarrant
+                                {
+                                    IDWarrant = (int)r["IDWarrant"],
+                                    VehicleID = (int)r["VehicleID"],
+                                    DriverID = (int)r["DriverID"],
+                                    WarrantStateID = (int)r["WarrantStateEnumId"],
+                                    Driver = drivers.Where(x => x.Id == (int)r["DriverID"]).FirstOrDefault(),
+                                    Vehicle = vehicles.Where(x=> x.IDVehicle == (int)r["VehicleID"]).FirstOrDefault(),
+                                    WarrantState = (TravelWarrantStateEnum)(int)r["WarrantStateEnumId"]
+                                });
+                            }
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return warrants;
+        }
+
+        private static IList<Vehicle> GetAllVehicles()
+        {
+            throw new NotImplementedException();
+            //TODO
+        }
+
+        public static int UpdateWarrant(int id, TravelWarrant tv)
+        {
+            int v = 0;
+            using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "UpdateWarrant";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@travelwarrantID", id);
+                    cmd.Parameters.AddWithValue("@vehicleid", tv.VehicleID);
+                    cmd.Parameters.AddWithValue("@warrantstateid", tv.WarrantStateID);
+                    cmd.Parameters.AddWithValue("@driverid", tv.DriverID);
+                    v = cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+            return v;
+        }
+
+        public static int DeleteWarrant(int id)
+        {
+            int v = 0;
+            using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DeleteWarrant";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@warrantid", id);
+                    v = cmd.ExecuteNonQuery();
+                }
+            }
+            return v;
+        }
+
+        public static int SaveWarrant(TravelWarrant tv)
+        {
+            int v = 0;
+            using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SaveWarrant";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@driverid", tv.DriverID);
+                    cmd.Parameters.AddWithValue("@vehicleid", tv.VehicleID);
+                    cmd.Parameters.AddWithValue("@warrantstateid", tv.WarrantStateID);
                 }
             }
             return v;
