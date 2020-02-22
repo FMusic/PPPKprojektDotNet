@@ -18,7 +18,7 @@ namespace PPPKprojektDotNet.Datebase
 
         public static int UpdateRoute(Route r)
         {
-
+            Update();
         }
 
         public static int DeleteRoute(Route r)
