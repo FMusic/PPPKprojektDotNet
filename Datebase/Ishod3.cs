@@ -14,19 +14,17 @@ namespace PPPKprojektDotNet.Datebase
     {
         public static int ImportXmlRoutes(string xmlFileName)
         {
-            using (XmlReader reader = XmlReader.Create(GetStream(xmlFileName)))
+            using (StreamReader sr = new StreamReader(xmlFileName))
             {
-                using (DataSet ds = new DataSet())
+                using (XmlReader reader = XmlReader.Create(sr))
                 {
-                    ds.ReadXml(reader);
-                    return SaveDataSetToDb(ds);
+                    using (DataSet ds = new DataSet())
+                    {
+                        ds.ReadXml(reader);
+                        return SaveDataSetToDb(ds);
+                    }
                 }
             }
-        }
-
-        private static Stream GetStream(string xmlFileName)
-        {
-            throw new NotImplementedException();
         }
 
         private static int SaveDataSetToDb(DataSet ds)
