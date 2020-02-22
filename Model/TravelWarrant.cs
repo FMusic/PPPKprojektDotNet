@@ -15,6 +15,8 @@ namespace PPPKprojektDotNet.Model
         public int WarrantStateID { get; set; }
         public Driver Driver { get; set; }
         public Vehicle Vehicle { get; set; }
+
+        public IList<Route> Routes { get; set; }
     }
 
     public enum TravelWarrantStateEnum
