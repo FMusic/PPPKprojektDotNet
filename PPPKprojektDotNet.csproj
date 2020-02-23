@@ -84,7 +84,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datebase\DbProps.cs" />
-    <Compile Include="Datebase\Ishod7.cs" />
+    <Compile Include="Datebase\I7\CarService.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datebase\I7\Ishod7.cs" />
+    <Compile Include="Datebase\I7\PPPKModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPPKModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datebase\I7\PPPKModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datebase\I7\PPPKModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPPKModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Datebase\I7\Vehicle.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datebase\Ishod5.cs" />
     <Compile Include="Datebase\Ishod4.cs" />
     <Compile Include="Datebase\Ishod3.cs" />
@@ -140,6 +161,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="Datebase\I7\PPPKModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PPPKModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Datebase\I7\PPPKModel.edmx.diagram">
+      <DependentUpon>PPPKModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -169,6 +197,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Datebase\I7\PPPKModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PPPKModel.edmx</DependentUpon>
+      <LastGenOutput>PPPKModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Datebase\I7\PPPKModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PPPKModel.edmx</DependentUpon>
+      <LastGenOutput>PPPKModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
