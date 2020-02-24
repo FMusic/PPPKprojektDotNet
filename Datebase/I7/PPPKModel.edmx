@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="pppk1dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="pppk1dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CarService">
           <Key>
             <PropertyRef Name="IDService" />
@@ -12,6 +12,15 @@
           <Property Name="IDService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VehicleID" Type="int" />
           <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="ServiceItems">
+          <Key>
+            <PropertyRef Name="IDItem" />
+          </Key>
+          <Property Name="IDItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="TotalPrice" Type="money" />
+          <Property Name="CarServiceID" Type="int" />
         </EntityType>
         <EntityType Name="Vehicles">
           <Key>
@@ -35,16 +44,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ServiceIt__CarSe__38996AB5">
+          <End Role="CarService" Type="Self.CarService" Multiplicity="0..1" />
+          <End Role="ServiceItems" Type="Self.ServiceItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarService">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="ServiceItems">
+              <PropertyRef Name="CarServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="pppk1dbModelStoreContainer">
           <EntitySet Name="CarService" EntityType="Self.CarService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceItems" EntityType="Self.ServiceItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CarServic__Vehic__2F10007B" Association="Self.FK__CarServic__Vehic__2F10007B">
             <End Role="Vehicles" EntitySet="Vehicles" />
             <End Role="CarService" EntitySet="CarService" />
           </AssociationSet>
+          <AssociationSet Name="FK__ServiceIt__CarSe__38996AB5" Association="Self.FK__ServiceIt__CarSe__38996AB5">
+            <End Role="CarService" EntitySet="CarService" />
+            <End Role="ServiceItems" EntitySet="ServiceItems" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pppk1dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -56,6 +81,7 @@
           <Property Name="VehicleID" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Vehicle" Relationship="Self.FK__CarServic__Vehic__2F10007B" FromRole="CarService" ToRole="Vehicles" />
+          <NavigationProperty Name="ServiceItems" Relationship="pppk1dbModel.FK__ServiceIt__CarSe__38996AB5" FromRole="CarService" ToRole="ServiceItem" />
         </EntityType>
         <EntityType Name="Vehicle">
           <Key>
@@ -87,7 +113,34 @@
             <End Role="Vehicles" EntitySet="Vehicles" />
             <End Role="CarService" EntitySet="CarServices" />
           </AssociationSet>
+          <EntitySet Name="ServiceItems" EntityType="pppk1dbModel.ServiceItem" />
+          <AssociationSet Name="FK__ServiceIt__CarSe__38996AB5" Association="pppk1dbModel.FK__ServiceIt__CarSe__38996AB5">
+            <End Role="CarService" EntitySet="CarServices" />
+            <End Role="ServiceItem" EntitySet="ServiceItems" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ServiceItem">
+          <Key>
+            <PropertyRef Name="IDItem" />
+          </Key>
+          <Property Name="IDItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CarServiceID" Type="Int32" />
+          <NavigationProperty Name="CarService" Relationship="pppk1dbModel.FK__ServiceIt__CarSe__38996AB5" FromRole="ServiceItem" ToRole="CarService" />
+        </EntityType>
+        <Association Name="FK__ServiceIt__CarSe__38996AB5">
+          <End Type="pppk1dbModel.CarService" Role="CarService" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.ServiceItem" Role="ServiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarService">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="ServiceItem">
+              <PropertyRef Name="CarServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -111,6 +164,16 @@
                 <ScalarProperty Name="Maker" ColumnName="Maker" />
                 <ScalarProperty Name="YearOfMaking" ColumnName="YearOfMaking" />
                 <ScalarProperty Name="miles" ColumnName="miles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceItems">
+            <EntityTypeMapping TypeName="pppk1dbModel.ServiceItem">
+              <MappingFragment StoreEntitySet="ServiceItems">
+                <ScalarProperty Name="CarServiceID" ColumnName="CarServiceID" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDItem" ColumnName="IDItem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

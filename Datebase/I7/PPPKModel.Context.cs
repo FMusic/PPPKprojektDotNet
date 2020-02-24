@@ -27,5 +27,6 @@ namespace PPPKprojektDotNet.Datebase.I7
     
         public virtual DbSet<CarService> CarServices { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<ServiceItem> ServiceItems { get; set; }
     }
 }

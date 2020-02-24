@@ -14,10 +14,18 @@ namespace PPPKprojektDotNet.Datebase.I7
     
     public partial class CarService
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CarService()
+        {
+            this.ServiceItems = new HashSet<ServiceItem>();
+        }
+    
         public int IDService { get; set; }
         public Nullable<int> VehicleID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceItem> ServiceItems { get; set; }
     }
 }

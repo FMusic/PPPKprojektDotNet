@@ -4,10 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c4d325b64c774ecabb4c3254cd2eca32" Name="Diagram1">
+      <Diagram DiagramId="c4d325b64c774ecabb4c3254cd2eca32" Name="Diagram1" ShowGrid="false" DisplayType="true">
         <EntityTypeShape EntityType="pppk1dbModel.CarService" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="pppk1dbModel.Vehicle" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="pppk1dbModel.FK__CarServic__Vehic__2F10007B" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="pppk1dbModel.ServiceItem" Width="1.5" PointX="5.25" PointY="1.125" />
+        <AssociationConnector Association="pppk1dbModel.FK__ServiceIt__CarSe__38996AB5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

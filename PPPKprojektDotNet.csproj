@@ -103,6 +103,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PPPKModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Datebase\I7\ServiceItem.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datebase\I7\Vehicle.cs">
       <DependentUpon>PPPKModel.tt</DependentUpon>
     </Compile>
