@@ -88,9 +88,21 @@ namespace PPPKprojektDotNet.Datebase
                 serviceItem.Name = si.Name;
                 serviceItem.CarServiceID = si.CarServiceID;
                 serviceItem.TotalPrice = si.TotalPrice;
-
                 return context.SaveChanges();
             }
+        }
+
+        public static string GetHtmlForVehicle(Vehicle v)
+        {
+            //todo
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<!DOCTYPE html>");
+            sb.Append("<html>");
+            sb.Append("<body>");
+
+            sb.Append("</body>");
+            sb.Append("</html>");
+            return sb.ToString();
         }
     }
 }
