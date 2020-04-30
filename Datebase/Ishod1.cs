@@ -165,8 +165,37 @@ namespace PPPKprojektDotNet.Datebase
 
         private static IList<Vehicle> GetAllVehicles()
         {
-            throw new NotImplementedException();
-            //TODO
+            IList<Vehicle> lista = new List<Vehicle>();
+            string cs = DbProps.GetCs();
+            string query = "Select * from Vehicles";
+            using (SqlConnection conn = new SqlConnection(cs))
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    cmd.CommandType = System.Data.CommandType.Text;
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                Vehicle v = new Vehicle();
+                                v.IDVehicle = (int)r["IDVehicle"];
+                                v.Maker = r["[Maker]"].ToString();
+                                v.Miles = (int)r["miles"];
+                                v.Type = r["Type"].ToString();
+                                v.YearOfMaking = (int)r["YearOfMaking"];
+                                lista.Add(v);
+                            }
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return lista;
         }
 
         public static int UpdateWarrant(int id, TravelWarrant tv)
@@ -220,6 +249,7 @@ namespace PPPKprojektDotNet.Datebase
                     cmd.Parameters.AddWithValue("@driverid", tv.DriverID);
                     cmd.Parameters.AddWithValue("@vehicleid", tv.VehicleID);
                     cmd.Parameters.AddWithValue("@warrantstateid", tv.WarrantStateID);
+                    v = cmd.ExecuteNonQuery();
                 }
             }
             return v;
