@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-16"?>
+<BazaPPPK>
+  <xs:schema id="BazaPPPK" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="BazaPPPK" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Drivers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IDDriver" type="xs:int" minOccurs="0" />
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Surname" type="xs:string" minOccurs="0" />
+                <xs:element name="phoneNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="driversLicenseID" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Vehicles">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IDVehicle" type="xs:int" minOccurs="0" />
+                <xs:element name="Type" type="xs:string" minOccurs="0" />
+                <xs:element name="Maker" type="xs:string" minOccurs="0" />
+                <xs:element name="YearOfMaking" type="xs:int" minOccurs="0" />
+                <xs:element name="miles" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Routes">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IDRoute" type="xs:int" minOccurs="0" />
+                <xs:element name="WarrantID" type="xs:int" minOccurs="0" />
+                <xs:element name="DateFrom" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="DateTo" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="CoordA" type="xs:string" minOccurs="0" />
+                <xs:element name="CoordB" type="xs:string" minOccurs="0" />
+                <xs:element name="DistanceInKm" type="xs:int" minOccurs="0" />
+                <xs:element name="AvgV" type="xs:int" minOccurs="0" />
+                <xs:element name="FuelSpent" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="TravelWarrants">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IDTwarrant" type="xs:int" minOccurs="0" />
+                <xs:element name="DriverID" type="xs:int" minOccurs="0" />
+                <xs:element name="VehicleID" type="xs:int" minOccurs="0" />
+                <xs:element name="WarrantStateEnumId" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Drivers>
+    <IDDriver>1</IDDriver>
+    <Name>Ana</Name>
+    <Surname>Ancitos</Surname>
+    <phoneNumber>099999999</phoneNumber>
+    <driversLicenseID>necemireci</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>2</IDDriver>
+    <Name>Pero</Name>
+    <Surname>Peric</Surname>
+    <phoneNumber>58932752</phoneNumber>
+    <driversLicenseID>nezna</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>3</IDDriver>
+    <Name>Ante</Name>
+    <Surname>Antic</Surname>
+    <phoneNumber>57238752</phoneNumber>
+    <driversLicenseID>nema</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>4</IDDriver>
+    <Name>Ivan</Name>
+    <Surname>Horvat</Surname>
+    <phoneNumber>70432342</phoneNumber>
+    <driversLicenseID>nece</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>5</IDDriver>
+    <Name>Ana</Name>
+    <Surname>Anic</Surname>
+    <phoneNumber>099999999</phoneNumber>
+    <driversLicenseID>necemireci</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>6</IDDriver>
+    <Name>Pero</Name>
+    <Surname>Peric</Surname>
+    <phoneNumber>58932752</phoneNumber>
+    <driversLicenseID>nezna</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>8</IDDriver>
+    <Name>Ivan</Name>
+    <Surname>Horvat</Surname>
+    <phoneNumber>70432342</phoneNumber>
+    <driversLicenseID>nece</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>9</IDDriver>
+    <Name>Ana</Name>
+    <Surname>Anic</Surname>
+    <phoneNumber>099999999</phoneNumber>
+    <driversLicenseID>necemireci</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>10</IDDriver>
+    <Name>Pero</Name>
+    <Surname>Peric</Surname>
+    <phoneNumber>58932752</phoneNumber>
+    <driversLicenseID>nezna</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>12</IDDriver>
+    <Name>Ivan</Name>
+    <Surname>Horvat</Surname>
+    <phoneNumber>70432342095</phoneNumber>
+    <driversLicenseID>nece</driversLicenseID>
+  </Drivers>
+  <Drivers>
+    <IDDriver>13</IDDriver>
+    <Name>Covik</Name>
+    <Surname>Covice</Surname>
+    <phoneNumber>0959065084</phoneNumber>
+    <driversLicenseID>nemavozacku</driversLicenseID>
+  </Drivers>
+  <Vehicles>
+    <IDVehicle>1</IDVehicle>
+    <Type>Fabia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1999</YearOfMaking>
+    <miles>25000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>2</IDVehicle>
+    <Type>Felicia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1980</YearOfMaking>
+    <miles>350000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>3</IDVehicle>
+    <Type>Yugo</Type>
+    <Maker>Zastava</Maker>
+    <YearOfMaking>1975</YearOfMaking>
+    <miles>0</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>4</IDVehicle>
+    <Type>Uno</Type>
+    <Maker>Fiat</Maker>
+    <YearOfMaking>1995</YearOfMaking>
+    <miles>420000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>5</IDVehicle>
+    <Type>Fabia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1999</YearOfMaking>
+    <miles>25000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>6</IDVehicle>
+    <Type>Felicia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1980</YearOfMaking>
+    <miles>350000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>7</IDVehicle>
+    <Type>Yugo</Type>
+    <Maker>Zastava</Maker>
+    <YearOfMaking>1975</YearOfMaking>
+    <miles>0</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>8</IDVehicle>
+    <Type>Uno</Type>
+    <Maker>Fiat</Maker>
+    <YearOfMaking>1995</YearOfMaking>
+    <miles>420000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>9</IDVehicle>
+    <Type>Fabia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1999</YearOfMaking>
+    <miles>25000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>10</IDVehicle>
+    <Type>Felicia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1980</YearOfMaking>
+    <miles>350000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>11</IDVehicle>
+    <Type>Yugo</Type>
+    <Maker>Zastava</Maker>
+    <YearOfMaking>1975</YearOfMaking>
+    <miles>0</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>12</IDVehicle>
+    <Type>Uno</Type>
+    <Maker>Fiat</Maker>
+    <YearOfMaking>1995</YearOfMaking>
+    <miles>420000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>13</IDVehicle>
+    <Type>Felicia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1980</YearOfMaking>
+    <miles>350000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>14</IDVehicle>
+    <Type>Felicia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1980</YearOfMaking>
+    <miles>350000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>15</IDVehicle>
+    <Type>Yugo</Type>
+    <Maker>Zastava</Maker>
+    <YearOfMaking>1975</YearOfMaking>
+    <miles>0</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>16</IDVehicle>
+    <Type>Fabia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1999</YearOfMaking>
+    <miles>25000</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>17</IDVehicle>
+    <Type>Yugo</Type>
+    <Maker>Zastava</Maker>
+    <YearOfMaking>1975</YearOfMaking>
+    <miles>0</miles>
+  </Vehicles>
+  <Vehicles>
+    <IDVehicle>18</IDVehicle>
+    <Type>Felicia</Type>
+    <Maker>Skoda</Maker>
+    <YearOfMaking>1980</YearOfMaking>
+    <miles>350000</miles>
+  </Vehicles>
+  <Routes>
+    <IDRoute>7</IDRoute>
+    <WarrantID>4</WarrantID>
+    <DateFrom>2019-12-09T00:00:00+01:00</DateFrom>
+    <DateTo>2019-12-10T00:00:00+01:00</DateTo>
+    <CoordA>4032804</CoordA>
+    <CoordB>4032806</CoordB>
+    <DistanceInKm>300</DistanceInKm>
+    <AvgV>45</AvgV>
+    <FuelSpent>9</FuelSpent>
+  </Routes>
+  <Routes>
+    <IDRoute>8</IDRoute>
+    <WarrantID>3</WarrantID>
+    <DateFrom>2019-12-20T00:00:00+01:00</DateFrom>
+    <DateTo>2019-12-31T00:00:00+01:00</DateTo>
+    <CoordA>4032816</CoordA>
+    <CoordB>4032820</CoordB>
+    <DistanceInKm>2500</DistanceInKm>
+    <AvgV>90</AvgV>
+    <FuelSpent>20</FuelSpent>
+  </Routes>
+  <TravelWarrants>
+    <IDTwarrant>3</IDTwarrant>
+    <DriverID>1</DriverID>
+    <VehicleID>2</VehicleID>
+    <WarrantStateEnumId>3</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>4</IDTwarrant>
+    <DriverID>2</DriverID>
+    <VehicleID>3</VehicleID>
+    <WarrantStateEnumId>1</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>12</IDTwarrant>
+    <DriverID>1</DriverID>
+    <VehicleID>1</VehicleID>
+    <WarrantStateEnumId>2</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>13</IDTwarrant>
+    <DriverID>1</DriverID>
+    <VehicleID>3</VehicleID>
+    <WarrantStateEnumId>1</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>14</IDTwarrant>
+    <DriverID>1</DriverID>
+    <VehicleID>3</VehicleID>
+    <WarrantStateEnumId>3</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>15</IDTwarrant>
+    <DriverID>2</DriverID>
+    <VehicleID>2</VehicleID>
+    <WarrantStateEnumId>1</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>16</IDTwarrant>
+    <DriverID>2</DriverID>
+    <VehicleID>3</VehicleID>
+    <WarrantStateEnumId>2</WarrantStateEnumId>
+  </TravelWarrants>
+  <TravelWarrants>
+    <IDTwarrant>17</IDTwarrant>
+    <DriverID>2</DriverID>
+    <VehicleID>1</VehicleID>
+    <WarrantStateEnumId>2</WarrantStateEnumId>
+  </TravelWarrants>
+</BazaPPPK>

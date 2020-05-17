@@ -249,6 +249,7 @@
       <LastGenOutput>PPPKModel.cs</LastGenOutput>
     </Content>
     <Content Include="misc\PPPKprojektFM.sql" />
+    <Content Include="misc\pppk_backup.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
