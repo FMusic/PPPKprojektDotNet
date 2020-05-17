@@ -5,13 +5,50 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="pppk1dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CarService">
+        <EntityType Name="CarServices">
           <Key>
             <PropertyRef Name="IDService" />
           </Key>
           <Property Name="IDService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VehicleID" Type="int" />
-          <Property Name="Date" Type="date" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="IDDriver" />
+          </Key>
+          <Property Name="IDDriver" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="20" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="driversLicenseID" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Fuels">
+          <Key>
+            <PropertyRef Name="IDFuel" />
+          </Key>
+          <Property Name="IDFuel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverId" Type="int" />
+          <Property Name="DateWhen" Type="datetime" />
+          <Property Name="TimeWhen" Type="time" Precision="7" />
+          <Property Name="Location" Type="nvarchar" MaxLength="20" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="VehicleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Routes">
+          <Key>
+            <PropertyRef Name="IDRoute" />
+          </Key>
+          <Property Name="IDRoute" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarrantID" Type="int" />
+          <Property Name="DateFrom" Type="datetime" />
+          <Property Name="DateTo" Type="datetime" />
+          <Property Name="CoordA" Type="nvarchar" MaxLength="20" />
+          <Property Name="CoordB" Type="nvarchar" MaxLength="20" />
+          <Property Name="DistanceInKm" Type="int" />
+          <Property Name="AvgV" Type="int" />
+          <Property Name="FuelSpent" Type="int" />
         </EntityType>
         <EntityType Name="ServiceItems">
           <Key>
@@ -19,8 +56,17 @@
           </Key>
           <Property Name="IDItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" />
-          <Property Name="TotalPrice" Type="money" />
+          <Property Name="TotalPrice" Type="decimal" Precision="19" Scale="4" />
           <Property Name="CarServiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="travelWarrants">
+          <Key>
+            <PropertyRef Name="IDTwarrant" />
+          </Key>
+          <Property Name="IDTwarrant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverID" Type="int" />
+          <Property Name="VehicleID" Type="int" />
+          <Property Name="WarrantStateEnumId" Type="int" />
         </EntityType>
         <EntityType Name="Vehicles">
           <Key>
@@ -32,23 +78,66 @@
           <Property Name="YearOfMaking" Type="int" />
           <Property Name="miles" Type="int" />
         </EntityType>
+        <EntityType Name="WarrantStateEnums">
+          <Key>
+            <PropertyRef Name="IDWarrantState" />
+          </Key>
+          <Property Name="IDWarrantState" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="6" />
+        </EntityType>
         <Association Name="FK__CarServic__Vehic__2F10007B">
           <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
-          <End Role="CarService" Type="Self.CarService" Multiplicity="*" />
+          <End Role="CarServices" Type="Self.CarServices" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicles">
               <PropertyRef Name="IDVehicle" />
             </Principal>
-            <Dependent Role="CarService">
+            <Dependent Role="CarServices">
               <PropertyRef Name="VehicleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Fuels__DriverId__34C8D9D1">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="Fuels" Type="Self.Fuels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="IDDriver" />
+            </Principal>
+            <Dependent Role="Fuels">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fuels__VehicleID__35BCFE0A">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+          <End Role="Fuels" Type="Self.Fuels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="IDVehicle" />
+            </Principal>
+            <Dependent Role="Fuels">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Routes__WarrantI__31EC6D26">
+          <End Role="travelWarrants" Type="Self.travelWarrants" Multiplicity="0..1" />
+          <End Role="Routes" Type="Self.Routes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travelWarrants">
+              <PropertyRef Name="IDTwarrant" />
+            </Principal>
+            <Dependent Role="Routes">
+              <PropertyRef Name="WarrantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ServiceIt__CarSe__38996AB5">
-          <End Role="CarService" Type="Self.CarService" Multiplicity="0..1" />
+          <End Role="CarServices" Type="Self.CarServices" Multiplicity="0..1" />
           <End Role="ServiceItems" Type="Self.ServiceItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CarService">
+            <Principal Role="CarServices">
               <PropertyRef Name="IDService" />
             </Principal>
             <Dependent Role="ServiceItems">
@@ -56,17 +145,82 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__travelWar__Drive__2A4B4B5E">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="travelWarrants" Type="Self.travelWarrants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="IDDriver" />
+            </Principal>
+            <Dependent Role="travelWarrants">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__travelWar__Vehic__2B3F6F97">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+          <End Role="travelWarrants" Type="Self.travelWarrants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="IDVehicle" />
+            </Principal>
+            <Dependent Role="travelWarrants">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__travelWar__Warra__2C3393D0">
+          <End Role="WarrantStateEnums" Type="Self.WarrantStateEnums" Multiplicity="0..1" />
+          <End Role="travelWarrants" Type="Self.travelWarrants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WarrantStateEnums">
+              <PropertyRef Name="IDWarrantState" />
+            </Principal>
+            <Dependent Role="travelWarrants">
+              <PropertyRef Name="WarrantStateEnumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="pppk1dbModelStoreContainer">
-          <EntitySet Name="CarService" EntityType="Self.CarService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarServices" EntityType="Self.CarServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fuels" EntityType="Self.Fuels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Routes" EntityType="Self.Routes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceItems" EntityType="Self.ServiceItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="travelWarrants" EntityType="Self.travelWarrants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarrantStateEnums" EntityType="Self.WarrantStateEnums" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CarServic__Vehic__2F10007B" Association="Self.FK__CarServic__Vehic__2F10007B">
             <End Role="Vehicles" EntitySet="Vehicles" />
-            <End Role="CarService" EntitySet="CarService" />
+            <End Role="CarServices" EntitySet="CarServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fuels__DriverId__34C8D9D1" Association="Self.FK__Fuels__DriverId__34C8D9D1">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Fuels" EntitySet="Fuels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fuels__VehicleID__35BCFE0A" Association="Self.FK__Fuels__VehicleID__35BCFE0A">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Fuels" EntitySet="Fuels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Routes__WarrantI__31EC6D26" Association="Self.FK__Routes__WarrantI__31EC6D26">
+            <End Role="travelWarrants" EntitySet="travelWarrants" />
+            <End Role="Routes" EntitySet="Routes" />
           </AssociationSet>
           <AssociationSet Name="FK__ServiceIt__CarSe__38996AB5" Association="Self.FK__ServiceIt__CarSe__38996AB5">
-            <End Role="CarService" EntitySet="CarService" />
+            <End Role="CarServices" EntitySet="CarServices" />
             <End Role="ServiceItems" EntitySet="ServiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__travelWar__Drive__2A4B4B5E" Association="Self.FK__travelWar__Drive__2A4B4B5E">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="travelWarrants" EntitySet="travelWarrants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__travelWar__Vehic__2B3F6F97" Association="Self.FK__travelWar__Vehic__2B3F6F97">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="travelWarrants" EntitySet="travelWarrants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__travelWar__Warra__2C3393D0" Association="Self.FK__travelWar__Warra__2C3393D0">
+            <End Role="WarrantStateEnums" EntitySet="WarrantStateEnums" />
+            <End Role="travelWarrants" EntitySet="travelWarrants" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -79,7 +233,7 @@
           </Key>
           <Property Name="IDService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VehicleID" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Vehicle" Relationship="Self.FK__CarServic__Vehic__2F10007B" FromRole="CarService" ToRole="Vehicles" />
           <NavigationProperty Name="ServiceItems" Relationship="pppk1dbModel.FK__ServiceIt__CarSe__38996AB5" FromRole="CarService" ToRole="ServiceItem" />
         </EntityType>
@@ -93,6 +247,8 @@
           <Property Name="YearOfMaking" Type="Int32" />
           <Property Name="miles" Type="Int32" />
           <NavigationProperty Name="CarServices" Relationship="Self.FK__CarServic__Vehic__2F10007B" FromRole="Vehicles" ToRole="CarService" />
+          <NavigationProperty Name="Fuels" Relationship="pppk1dbModel.FK__Fuels__VehicleID__35BCFE0A" FromRole="Vehicle" ToRole="Fuel" />
+          <NavigationProperty Name="travelWarrants" Relationship="pppk1dbModel.FK__travelWar__Vehic__2B3F6F97" FromRole="Vehicle" ToRole="travelWarrant" />
         </EntityType>
         <Association Name="FK__CarServic__Vehic__2F10007B">
           <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="0..1" />
@@ -118,6 +274,35 @@
             <End Role="CarService" EntitySet="CarServices" />
             <End Role="ServiceItem" EntitySet="ServiceItems" />
           </AssociationSet>
+          <EntitySet Name="Drivers" EntityType="pppk1dbModel.Driver" />
+          <EntitySet Name="Fuels" EntityType="pppk1dbModel.Fuel" />
+          <EntitySet Name="Routes" EntityType="pppk1dbModel.Route" />
+          <EntitySet Name="travelWarrants" EntityType="pppk1dbModel.travelWarrant" />
+          <EntitySet Name="WarrantStateEnums" EntityType="pppk1dbModel.WarrantStateEnum" />
+          <AssociationSet Name="FK__Fuels__DriverId__34C8D9D1" Association="pppk1dbModel.FK__Fuels__DriverId__34C8D9D1">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Fuel" EntitySet="Fuels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__travelWar__Drive__2A4B4B5E" Association="pppk1dbModel.FK__travelWar__Drive__2A4B4B5E">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="travelWarrant" EntitySet="travelWarrants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fuels__VehicleID__35BCFE0A" Association="pppk1dbModel.FK__Fuels__VehicleID__35BCFE0A">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="Fuel" EntitySet="Fuels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Routes__WarrantI__31EC6D26" Association="pppk1dbModel.FK__Routes__WarrantI__31EC6D26">
+            <End Role="travelWarrant" EntitySet="travelWarrants" />
+            <End Role="Route" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__travelWar__Vehic__2B3F6F97" Association="pppk1dbModel.FK__travelWar__Vehic__2B3F6F97">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="travelWarrant" EntitySet="travelWarrants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__travelWar__Warra__2C3393D0" Association="pppk1dbModel.FK__travelWar__Warra__2C3393D0">
+            <End Role="WarrantStateEnum" EntitySet="WarrantStateEnums" />
+            <End Role="travelWarrant" EntitySet="travelWarrants" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ServiceItem">
           <Key>
@@ -141,45 +326,237 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="IDDriver" />
+          </Key>
+          <Property Name="IDDriver" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="driversLicenseID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fuels" Relationship="pppk1dbModel.FK__Fuels__DriverId__34C8D9D1" FromRole="Driver" ToRole="Fuel" />
+          <NavigationProperty Name="travelWarrants" Relationship="pppk1dbModel.FK__travelWar__Drive__2A4B4B5E" FromRole="Driver" ToRole="travelWarrant" />
+        </EntityType>
+        <EntityType Name="Fuel">
+          <Key>
+            <PropertyRef Name="IDFuel" />
+          </Key>
+          <Property Name="IDFuel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverId" Type="Int32" />
+          <Property Name="DateWhen" Type="DateTime" Precision="3" />
+          <Property Name="TimeWhen" Type="Time" Precision="7" />
+          <Property Name="Location" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="VehicleID" Type="Int32" />
+          <NavigationProperty Name="Driver" Relationship="pppk1dbModel.FK__Fuels__DriverId__34C8D9D1" FromRole="Fuel" ToRole="Driver" />
+          <NavigationProperty Name="Vehicle" Relationship="pppk1dbModel.FK__Fuels__VehicleID__35BCFE0A" FromRole="Fuel" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="IDRoute" />
+          </Key>
+          <Property Name="IDRoute" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarrantID" Type="Int32" />
+          <Property Name="DateFrom" Type="DateTime" Precision="3" />
+          <Property Name="DateTo" Type="DateTime" Precision="3" />
+          <Property Name="CoordA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CoordB" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DistanceInKm" Type="Int32" />
+          <Property Name="AvgV" Type="Int32" />
+          <Property Name="FuelSpent" Type="Int32" />
+          <NavigationProperty Name="travelWarrant" Relationship="pppk1dbModel.FK__Routes__WarrantI__31EC6D26" FromRole="Route" ToRole="travelWarrant" />
+        </EntityType>
+        <EntityType Name="travelWarrant">
+          <Key>
+            <PropertyRef Name="IDTwarrant" />
+          </Key>
+          <Property Name="IDTwarrant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverID" Type="Int32" />
+          <Property Name="VehicleID" Type="Int32" />
+          <Property Name="WarrantStateEnumId" Type="Int32" />
+          <NavigationProperty Name="Driver" Relationship="pppk1dbModel.FK__travelWar__Drive__2A4B4B5E" FromRole="travelWarrant" ToRole="Driver" />
+          <NavigationProperty Name="Routes" Relationship="pppk1dbModel.FK__Routes__WarrantI__31EC6D26" FromRole="travelWarrant" ToRole="Route" />
+          <NavigationProperty Name="Vehicle" Relationship="pppk1dbModel.FK__travelWar__Vehic__2B3F6F97" FromRole="travelWarrant" ToRole="Vehicle" />
+          <NavigationProperty Name="WarrantStateEnum" Relationship="pppk1dbModel.FK__travelWar__Warra__2C3393D0" FromRole="travelWarrant" ToRole="WarrantStateEnum" />
+        </EntityType>
+        <EntityType Name="WarrantStateEnum">
+          <Key>
+            <PropertyRef Name="IDWarrantState" />
+          </Key>
+          <Property Name="IDWarrantState" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="travelWarrants" Relationship="pppk1dbModel.FK__travelWar__Warra__2C3393D0" FromRole="WarrantStateEnum" ToRole="travelWarrant" />
+        </EntityType>
+        <Association Name="FK__Fuels__DriverId__34C8D9D1">
+          <End Type="pppk1dbModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.Fuel" Role="Fuel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="IDDriver" />
+            </Principal>
+            <Dependent Role="Fuel">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__travelWar__Drive__2A4B4B5E">
+          <End Type="pppk1dbModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.travelWarrant" Role="travelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="IDDriver" />
+            </Principal>
+            <Dependent Role="travelWarrant">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fuels__VehicleID__35BCFE0A">
+          <End Type="pppk1dbModel.Vehicle" Role="Vehicle" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.Fuel" Role="Fuel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="IDVehicle" />
+            </Principal>
+            <Dependent Role="Fuel">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Routes__WarrantI__31EC6D26">
+          <End Type="pppk1dbModel.travelWarrant" Role="travelWarrant" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.Route" Role="Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travelWarrant">
+              <PropertyRef Name="IDTwarrant" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="WarrantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__travelWar__Vehic__2B3F6F97">
+          <End Type="pppk1dbModel.Vehicle" Role="Vehicle" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.travelWarrant" Role="travelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="IDVehicle" />
+            </Principal>
+            <Dependent Role="travelWarrant">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__travelWar__Warra__2C3393D0">
+          <End Type="pppk1dbModel.WarrantStateEnum" Role="WarrantStateEnum" Multiplicity="0..1" />
+          <End Type="pppk1dbModel.travelWarrant" Role="travelWarrant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WarrantStateEnum">
+              <PropertyRef Name="IDWarrantState" />
+            </Principal>
+            <Dependent Role="travelWarrant">
+              <PropertyRef Name="WarrantStateEnumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="pppk1dbModelStoreContainer" CdmEntityContainer="pppk1dbEntities1">
-          <EntitySetMapping Name="CarServices">
-            <EntityTypeMapping TypeName="pppk1dbModel.CarService">
-              <MappingFragment StoreEntitySet="CarService">
-                <ScalarProperty Name="IDService" ColumnName="IDService" />
-                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vehicles">
-            <EntityTypeMapping TypeName="pppk1dbModel.Vehicle">
-              <MappingFragment StoreEntitySet="Vehicles">
-                <ScalarProperty Name="IDVehicle" ColumnName="IDVehicle" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Maker" ColumnName="Maker" />
-                <ScalarProperty Name="YearOfMaking" ColumnName="YearOfMaking" />
-                <ScalarProperty Name="miles" ColumnName="miles" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceItems">
-            <EntityTypeMapping TypeName="pppk1dbModel.ServiceItem">
-              <MappingFragment StoreEntitySet="ServiceItems">
-                <ScalarProperty Name="CarServiceID" ColumnName="CarServiceID" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IDItem" ColumnName="IDItem" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="pppk1dbModelStoreContainer" CdmEntityContainer="pppk1dbEntities1">
+    <EntitySetMapping Name="CarServices">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.CarService)">
+        <MappingFragment StoreEntitySet="CarServices">
+          <ScalarProperty Name="IDService" ColumnName="IDService" />
+          <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.Vehicle)">
+        <MappingFragment StoreEntitySet="Vehicles">
+          <ScalarProperty Name="IDVehicle" ColumnName="IDVehicle" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Maker" ColumnName="Maker" />
+          <ScalarProperty Name="YearOfMaking" ColumnName="YearOfMaking" />
+          <ScalarProperty Name="miles" ColumnName="miles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceItems">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.ServiceItem)">
+        <MappingFragment StoreEntitySet="ServiceItems">
+          <ScalarProperty Name="IDItem" ColumnName="IDItem" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="CarServiceID" ColumnName="CarServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drivers">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.Driver)">
+        <MappingFragment StoreEntitySet="Drivers">
+          <ScalarProperty Name="IDDriver" ColumnName="IDDriver" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="driversLicenseID" ColumnName="driversLicenseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fuels">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.Fuel)">
+        <MappingFragment StoreEntitySet="Fuels">
+          <ScalarProperty Name="IDFuel" ColumnName="IDFuel" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+          <ScalarProperty Name="DateWhen" ColumnName="DateWhen" />
+          <ScalarProperty Name="TimeWhen" ColumnName="TimeWhen" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Routes">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.Route)">
+        <MappingFragment StoreEntitySet="Routes">
+          <ScalarProperty Name="IDRoute" ColumnName="IDRoute" />
+          <ScalarProperty Name="WarrantID" ColumnName="WarrantID" />
+          <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+          <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+          <ScalarProperty Name="CoordA" ColumnName="CoordA" />
+          <ScalarProperty Name="CoordB" ColumnName="CoordB" />
+          <ScalarProperty Name="DistanceInKm" ColumnName="DistanceInKm" />
+          <ScalarProperty Name="AvgV" ColumnName="AvgV" />
+          <ScalarProperty Name="FuelSpent" ColumnName="FuelSpent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="travelWarrants">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.travelWarrant)">
+        <MappingFragment StoreEntitySet="travelWarrants">
+          <ScalarProperty Name="IDTwarrant" ColumnName="IDTwarrant" />
+          <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+          <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+          <ScalarProperty Name="WarrantStateEnumId" ColumnName="WarrantStateEnumId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WarrantStateEnums">
+      <EntityTypeMapping TypeName="IsTypeOf(pppk1dbModel.WarrantStateEnum)">
+        <MappingFragment StoreEntitySet="WarrantStateEnums">
+          <ScalarProperty Name="IDWarrantState" ColumnName="IDWarrantState" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -193,7 +570,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

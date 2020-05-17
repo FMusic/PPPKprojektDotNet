@@ -11,10 +11,14 @@ namespace PPPKprojektDotNet.Datebase
 {
     public static class Ishod4
     {
-        public static IList<Route> GetRoutesForWarrant(TravelWarrant tw)
+        public static IList<Route> GetRoutesForWarrant(TravelWarrant travelWarrant)
         {
+            if (travelWarrant== null)
+            {
+                throw new ArgumentNullException("travelWarrant", "Atr travelWarrant must not be null");
+            }
             IList<Route> routes = new List<Route>();
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(DbProps.GetCs(), "GetWarrants"))
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(DbProps.GetCs(), "GetRoutesForWarrant", travelWarrant.IDWarrant))
             {
                 while (reader.Read())
                 {
@@ -35,10 +39,10 @@ namespace PPPKprojektDotNet.Datebase
             return routes;
         }
 
-        public static int UpdateRoute(Route r) => SqlHelper.ExecuteNonQuery(DbProps.GetCs(), "UpdateRoute", r.WarrantID, r.DateStart, r.DateEnd, r.CoordA, r.CoordB, r.DistanceKm, r.AvgSpeed, r.FuelSpent);
+        public static int UpdateRoute(Route r) => SqlHelper.ExecuteNonQuery(DbProps.GetCs(), "SaveRoute",r.IDRoute, r.WarrantID, r.DateStart, r.DateEnd, r.CoordA, r.CoordB, r.DistanceKm, r.AvgSpeed, r.FuelSpent);
 
         public static int DeleteRoute(Route r) => SqlHelper.ExecuteNonQuery(DbProps.GetCs(), "DeleteRoute", r.IDRoute);
 
-        public static int SaveRoute(Route r, TravelWarrant tw) => SqlHelper.ExecuteNonQuery(DbProps.GetCs(), "SaveRoute", r.WarrantID, r.DateStart, r.DateEnd, r.CoordA, r.CoordB, r.DistanceKm, r.AvgSpeed, r.FuelSpent);
+        public static int SaveRoute(Route r) => SqlHelper.ExecuteNonQuery(DbProps.GetCs(), "SaveRoute",0 , r.WarrantID, r.DateStart, r.DateEnd, r.CoordA, r.CoordB, r.DistanceKm, r.AvgSpeed, r.FuelSpent);
     }
 }

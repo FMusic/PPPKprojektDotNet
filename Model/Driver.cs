@@ -26,6 +26,11 @@ namespace PPPKprojektDotNet.Model
             DriversLicenseID = driversLicenseID;
             PhoneNumber = phoneNumber;
         }
+
+        public override string ToString()
+        {
+            return Name+" "+Surname;
+        }
     }
 }
 

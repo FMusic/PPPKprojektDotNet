@@ -50,7 +50,7 @@ namespace PPPKprojektDotNet.Datebase
         public static int SaveDriver(Driver d)
         {
             string cs = DbProps.GetCs();
-            string query = "INSERT INTO Driver(Name,Surname,phoneNumber,driversLicenseID) " +
+            string query = "INSERT INTO Drivers(Name,Surname,phoneNumber,driversLicenseID) " +
                 "VALUES(@param1,@param2,@param3,@param4)";
             int v;
             using (SqlConnection conn = new SqlConnection(cs))
@@ -61,8 +61,33 @@ namespace PPPKprojektDotNet.Datebase
                     cmd.Parameters.Add("@param1", SqlDbType.VarChar).Value = d.Name;
                     cmd.Parameters.Add("@param2", SqlDbType.VarChar).Value = d.Surname;
                     cmd.Parameters.Add("@param3", SqlDbType.VarChar).Value = d.PhoneNumber;
-                    cmd.Parameters.Add("@param3", SqlDbType.VarChar).Value = d.DriversLicenseID;
+                    cmd.Parameters.Add("@param4", SqlDbType.VarChar).Value = d.DriversLicenseID;
                     cmd.CommandType = CommandType.Text;
+                    v = cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+            return v;
+        }
+
+        internal static void SaveRoute(int v, Route r)
+        {
+            // TODO: Finish saving route
+            throw new NotImplementedException();
+        }
+
+        internal static int DeleteRoute(int idRoute)
+        {
+            string prouteid = "@idroute";
+            string query = "DELETE FROM Routes where IDRoute = " + prouteid;
+            int v;
+            using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue(prouteid, idRoute);
                     v = cmd.ExecuteNonQuery();
                 }
                 conn.Close();
@@ -79,9 +104,10 @@ namespace PPPKprojektDotNet.Datebase
             string pid = "@id";
             String cs = DbProps.GetCs();
             string delim = ",";
-            string query = "UPDATE Driver(Name, Surname, phoneNumber, driversLicenseID) " +
-                "SET (" + pname + delim + psurname + delim + pphone + delim + plicense + ")" +
-                "WHERE IDDriver = " + pid;
+            string query = "UPDATE Drivers SET Name = " + pname + ", " +
+                "Surname = " + psurname + ", " +
+                "phoneNumber = " + pphone + ", " +
+                "driversLicenseID = " + plicense + " WHERE IDDriver = " + pid;
             int v;
             using (SqlConnection conn = new SqlConnection(cs))
             {
@@ -104,7 +130,7 @@ namespace PPPKprojektDotNet.Datebase
 
         public static int DeleteDriver(int id)
         {
-            string query = "DELETE FROM Driver WHERE id=@pid";
+            string query = "DELETE FROM Drivers WHERE IDDriver=@pid";
             int v;
             using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
             {
@@ -118,6 +144,43 @@ namespace PPPKprojektDotNet.Datebase
                 }
             }
             return v;
+        }
+
+        public static IList<Route> GetRoutes(int warrantId)
+        {
+            IList<Route> routes = new List<Route>();
+            string query = "SELECT * FROM Routes Where WarrantID = @wid";
+            using(SqlConnection conn = new SqlConnection(DbProps.GetCs()))
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.Parameters.AddWithValue("@wid", warrantId);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = query;
+                    using (SqlDataReader re = cmd.ExecuteReader())
+                    {
+                        if (re.HasRows)
+                        {
+                            while (re.Read())
+                            {
+                                Route r = new Route();
+                                r.IDRoute = (int)re["IDRoute"];
+                                r.WarrantID = (int)re["WarrantID"];
+                                r.DateStart = DateTime.Parse(re["DateFrom"].ToString());
+                                r.DateEnd = DateTime.Parse(re["DateTo"].ToString());
+                                r.CoordA = re["CoordA"].ToString();
+                                r.CoordB = re["CoordB"].ToString();
+                                r.DistanceKm = (int)re["DistanceInKm"];
+                                r.AvgSpeed = (int)re["AvgV"];
+                                r.FuelSpent = (int)re["FuelSpent"];
+                                routes.Add(r);
+                            }
+                        }
+                    }
+                }
+            }
+            return routes;
         }
         
         public static IList<TravelWarrant> GetAllTravelWarrants()
@@ -146,7 +209,7 @@ namespace PPPKprojektDotNet.Datebase
                             {
                                 warrants.Add(new TravelWarrant
                                 {
-                                    IDWarrant = (int)r["IDWarrant"],
+                                    IDWarrant = (int)r["IDTWarrant"],
                                     VehicleID = (int)r["VehicleID"],
                                     DriverID = (int)r["DriverID"],
                                     WarrantStateID = (int)r["WarrantStateEnumId"],
@@ -184,7 +247,7 @@ namespace PPPKprojektDotNet.Datebase
                             {
                                 Vehicle v = new Vehicle();
                                 v.IDVehicle = (int)r["IDVehicle"];
-                                v.Maker = r["[Maker]"].ToString();
+                                v.Maker = r["Maker"].ToString();
                                 v.Miles = (int)r["miles"];
                                 v.Type = r["Type"].ToString();
                                 v.YearOfMaking = (int)r["YearOfMaking"];

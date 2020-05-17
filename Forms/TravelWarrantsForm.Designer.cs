@@ -28,185 +28,219 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgWarrants = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbFilter = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.cbDrivers = new System.Windows.Forms.ComboBox();
+            this.cbVehicle = new System.Windows.Forms.ComboBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnRoutes = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.lblWarrantID = new System.Windows.Forms.Label();
+            this.cbWarrantState = new System.Windows.Forms.ComboBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgWarrants)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgWarrants
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 13);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(514, 245);
-            this.dataGridView1.TabIndex = 0;
+            this.dgWarrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgWarrants.Location = new System.Drawing.Point(10, 11);
+            this.dgWarrants.Margin = new System.Windows.Forms.Padding(2);
+            this.dgWarrants.Name = "dgWarrants";
+            this.dgWarrants.RowHeadersWidth = 51;
+            this.dgWarrants.RowTemplate.Height = 24;
+            this.dgWarrants.Size = new System.Drawing.Size(643, 219);
+            this.dgWarrants.TabIndex = 0;
+            this.dgWarrants.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgWarrants_CellClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(564, 13);
+            this.label1.Location = new System.Drawing.Point(499, 254);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 17);
+            this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Show only";
             // 
-            // comboBox1
+            // cbFilter
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(533, 33);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(124, 24);
-            this.comboBox1.TabIndex = 2;
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Location = new System.Drawing.Point(559, 251);
+            this.cbFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(94, 21);
+            this.cbFilter.TabIndex = 2;
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 286);
+            this.label2.Location = new System.Drawing.Point(12, 232);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 17);
+            this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "New";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 319);
+            this.label3.Location = new System.Drawing.Point(12, 259);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Driver";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 346);
+            this.label4.Location = new System.Drawing.Point(12, 281);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 17);
+            this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Vehicle";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 374);
+            this.label5.Location = new System.Drawing.Point(9, 332);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 17);
+            this.label5.Size = new System.Drawing.Size(78, 13);
             this.label5.TabIndex = 6;
             this.label5.Text = "Travel Warrant";
+            // 
+            // cbDrivers
+            // 
+            this.cbDrivers.FormattingEnabled = true;
+            this.cbDrivers.Location = new System.Drawing.Point(111, 254);
+            this.cbDrivers.Margin = new System.Windows.Forms.Padding(2);
+            this.cbDrivers.Name = "cbDrivers";
+            this.cbDrivers.Size = new System.Drawing.Size(165, 21);
+            this.cbDrivers.TabIndex = 10;
+            // 
+            // cbVehicle
+            // 
+            this.cbVehicle.FormattingEnabled = true;
+            this.cbVehicle.Location = new System.Drawing.Point(111, 281);
+            this.cbVehicle.Margin = new System.Windows.Forms.Padding(2);
+            this.cbVehicle.Name = "cbVehicle";
+            this.cbVehicle.Size = new System.Drawing.Size(165, 21);
+            this.cbVehicle.TabIndex = 11;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(178, 443);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(103, 35);
+            this.btnSave.TabIndex = 15;
+            this.btnSave.Text = "New/Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(178, 433);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(0, 0);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(301, 443);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(103, 35);
+            this.btnDelete.TabIndex = 23;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnRoutes
+            // 
+            this.btnRoutes.Location = new System.Drawing.Point(61, 443);
+            this.btnRoutes.Name = "btnRoutes";
+            this.btnRoutes.Size = new System.Drawing.Size(103, 35);
+            this.btnRoutes.TabIndex = 24;
+            this.btnRoutes.Text = "See Routes";
+            this.btnRoutes.UseVisualStyleBackColor = true;
+            this.btnRoutes.Click += new System.EventHandler(this.btnRoutes_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(16, 400);
+            this.label6.Location = new System.Drawing.Point(58, 349);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(63, 17);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Start city";
+            this.label6.Size = new System.Drawing.Size(92, 13);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Travel Warrant ID";
             // 
-            // label7
+            // lblWarrantID
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 426);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 17);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "End city";
+            this.lblWarrantID.AutoSize = true;
+            this.lblWarrantID.Location = new System.Drawing.Point(108, 366);
+            this.lblWarrantID.Name = "lblWarrantID";
+            this.lblWarrantID.Size = new System.Drawing.Size(13, 13);
+            this.lblWarrantID.TabIndex = 26;
+            this.lblWarrantID.Text = "0";
             // 
-            // label8
+            // cbWarrantState
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 453);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 17);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Number of days";
+            this.cbWarrantState.FormattingEnabled = true;
+            this.cbWarrantState.Location = new System.Drawing.Point(61, 392);
+            this.cbWarrantState.Margin = new System.Windows.Forms.Padding(2);
+            this.cbWarrantState.Name = "cbWarrantState";
+            this.cbWarrantState.Size = new System.Drawing.Size(148, 21);
+            this.cbWarrantState.TabIndex = 27;
             // 
-            // comboBox2
+            // btnUpdate
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(148, 312);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(219, 24);
-            this.comboBox2.TabIndex = 10;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(148, 346);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(219, 24);
-            this.comboBox3.TabIndex = 11;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(148, 394);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(219, 22);
-            this.textBox1.TabIndex = 12;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(148, 420);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(219, 22);
-            this.textBox2.TabIndex = 13;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(148, 447);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(219, 22);
-            this.textBox3.TabIndex = 14;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(473, 312);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 43);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnUpdate.Location = new System.Drawing.Point(411, 443);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(112, 35);
+            this.btnUpdate.TabIndex = 28;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // TravelWarrantsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 497);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.ClientSize = new System.Drawing.Size(664, 529);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.cbWarrantState);
+            this.Controls.Add(this.lblWarrantID);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnRoutes);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.cbVehicle);
+            this.Controls.Add(this.cbDrivers);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbFilter);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgWarrants);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TravelWarrantsForm";
             this.Text = "TravelWarrantsForm";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgWarrants)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,21 +248,22 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgWarrants;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbFilter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbDrivers;
+        private System.Windows.Forms.ComboBox cbVehicle;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnRoutes;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblWarrantID;
+        private System.Windows.Forms.ComboBox cbWarrantState;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

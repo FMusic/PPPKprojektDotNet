@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +12,12 @@ namespace PPPKprojektDotNet.Datebase
     {
         public static IList<Vehicle> GetVehicles()
         {
+            IList<Vehicle> toRet;
             using (var context = new pppk1dbEntities1())
             {
-                IList<Vehicle> toRet = context.Vehicles.ToList();
-                return toRet;
+                toRet = context.Vehicles.ToList();
             }
+            return toRet;
         }
 
         public static int CreateService(CarService cs)
@@ -31,7 +33,8 @@ namespace PPPKprojektDotNet.Datebase
         {
             using (var context = new pppk1dbEntities1())
             {
-                IList<CarService> toRet = context.CarServices.Where(x => x.Vehicle.Equals(v)).ToList();
+                System.Data.Entity.DbSet<CarService> cs = context.CarServices;
+                IList<CarService> toRet = cs.Where(x => x.VehicleID == v.IDVehicle).ToList();
                 return toRet;
             }
         }
@@ -94,7 +97,7 @@ namespace PPPKprojektDotNet.Datebase
 
         public static string GetHtmlForVehicle(Vehicle v)
         {
-            //todo
+            // TODO: Finish export to HTML
             StringBuilder sb = new StringBuilder();
             sb.Append("<!DOCTYPE html>");
             sb.Append("<html>");

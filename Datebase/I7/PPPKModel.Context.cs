@@ -18,6 +18,7 @@ namespace PPPKprojektDotNet.Datebase.I7
         public pppk1dbEntities1()
             : base("name=pppk1dbEntities1")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,5 +29,10 @@ namespace PPPKprojektDotNet.Datebase.I7
         public virtual DbSet<CarService> CarServices { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<ServiceItem> ServiceItems { get; set; }
+        public virtual DbSet<Driver> Drivers { get; set; }
+        public virtual DbSet<Fuel> Fuels { get; set; }
+        public virtual DbSet<Route> Routes { get; set; }
+        public virtual DbSet<travelWarrant> travelWarrants { get; set; }
+        public virtual DbSet<WarrantStateEnum> WarrantStateEnums { get; set; }
     }
 }

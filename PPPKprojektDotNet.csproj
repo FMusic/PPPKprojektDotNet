@@ -87,6 +87,12 @@
     <Compile Include="Datebase\I7\CarService.cs">
       <DependentUpon>PPPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Datebase\I7\Driver.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datebase\I7\Fuel.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datebase\I7\Ishod7.cs" />
     <Compile Include="Datebase\I7\PPPKModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -103,21 +109,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PPPKModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Datebase\I7\Route.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datebase\I7\ServiceItem.cs">
       <DependentUpon>PPPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Datebase\I7\travelWarrant.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datebase\I7\Vehicle.cs">
+      <DependentUpon>PPPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datebase\I7\WarrantStateEnum.cs">
       <DependentUpon>PPPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Datebase\Ishod5.cs" />
     <Compile Include="Datebase\Ishod4.cs" />
     <Compile Include="Datebase\Ishod3.cs" />
     <Compile Include="Datebase\Ishod1.cs" />
+    <Compile Include="Forms\CarServices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CarServices.Designer.cs">
+      <DependentUpon>CarServices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DriversForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DriversForm.Designer.cs">
       <DependentUpon>DriversForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RouteForm.cs">
       <SubType>Form</SubType>
@@ -137,14 +164,22 @@
     <Compile Include="Forms\XmlForm.Designer.cs">
       <DependentUpon>XmlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\AllModel.cs" />
     <Compile Include="Model\Driver.cs" />
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\TravelWarrant.cs" />
+    <Compile Include="Model\TravelWarrantVM.cs" />
     <Compile Include="Model\Vehicle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\CarServices.resx">
+      <DependentUpon>CarServices.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DriversForm.resx">
       <DependentUpon>DriversForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RouteForm.resx">
       <DependentUpon>RouteForm.cs</DependentUpon>
@@ -207,6 +242,7 @@
       <DependentUpon>PPPKModel.edmx</DependentUpon>
       <LastGenOutput>PPPKModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Datebase\I7\PPPKModel.edmx.sql" />
     <Content Include="Datebase\I7\PPPKModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PPPKModel.edmx</DependentUpon>
