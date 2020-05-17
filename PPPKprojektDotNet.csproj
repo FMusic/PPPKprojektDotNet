@@ -248,6 +248,7 @@
       <DependentUpon>PPPKModel.edmx</DependentUpon>
       <LastGenOutput>PPPKModel.cs</LastGenOutput>
     </Content>
+    <Content Include="misc\PPPKprojektFM.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
