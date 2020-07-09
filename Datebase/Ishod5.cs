@@ -25,37 +25,23 @@ namespace PPPKprojektDotNet.Datebase
             };
             using (XmlWriter writer = XmlWriter.Create(sb, settings))
             {
-                writer.WriteStartDocument();
-                using (DataSet ds = GetDataFromDb())
+                writer.WriteStartElement("Drivers");
+                IList<Model.Driver> drivers = Ishod1.GetDrivers();
+                foreach (var driver in drivers)
                 {
-                    ds.WriteXml(writer, XmlWriteMode.WriteSchema);
+                    writer.WriteStartElement("Driver");
+                    writer.WriteElementString("ID", driver.Id.ToString());
+                    writer.WriteElementString("Name", driver.Name.ToString());
+                    writer.WriteElementString("Surname", driver.Surname.ToString());
+                    writer.WriteElementString("PhoneNumber", driver.PhoneNumber.ToString());
+                    writer.WriteElementString("DriversLicenseID", driver.DriversLicenseID.ToString());
+                    writer.WriteEndElement();
+
                 }
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
             }
             return sb.ToString();
-        }
-
-        private static DataSet GetDataFromDb()
-        {
-            DataSet ds = new DataSet(DSName);
-            using (SqlConnection conn = new SqlConnection(DbProps.GetCs()))
-            {
-                string query1 = "SELECT * FROM Drivers";
-                string query2 = "SELECT * FROM Vehicles";
-                string query3 = "SELECT * FROM Routes";
-                string query4 = "SELECT * FROM TravelWarrants";
-                using (SqlDataAdapter adapter = new SqlDataAdapter())
-                {
-                    adapter.SelectCommand = new SqlCommand(query1, conn);
-                    adapter.Fill(ds, "Drivers");
-                    adapter.SelectCommand = new SqlCommand(query2, conn);
-                    adapter.Fill(ds, "Vehicles");
-                    adapter.SelectCommand = new SqlCommand(query3, conn);
-                    adapter.Fill(ds, "Routes");
-                    adapter.SelectCommand = new SqlCommand(query4, conn);
-                    adapter.Fill(ds, "TravelWarrants");
-                }
-            }
-            return ds;
         }
 
         public static void SaveAllDataFromXml(string filepath)
